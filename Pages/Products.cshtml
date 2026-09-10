@@ -1,0 +1,93 @@
+@page
+@model Cloud_Development_B__project_1.Pages.ProductsModel   
+@{
+    ViewData["Title"] = "Customer Management";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Customer Management</h1>
+
+    @if (Model.SuccessMessage != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @Model.SuccessMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (Model.ErrorMessage != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @Model.ErrorMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Add New Customer</h5>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="NewCustomer.CustomerName" class="form-label">Customer Name</label>
+                        <input asp-for="NewCustomer.CustomerName" class="form-control" required />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="NewCustomer.Email" class="form-label">Email</label>
+                        <input asp-for="NewCustomer.Email" type="email" class="form-control" required />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="NewCustomer.PhoneNumber" class="form-label">Phone Number</label>
+                        <input asp-for="NewCustomer.PhoneNumber" class="form-control" required />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="NewCustomer.Address" class="form-label">Address</label>
+                        <input asp-for="NewCustomer.Address" class="form-control" required />
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Customer</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5>Existing Customers</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Date Added</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var customer in Model.Customers)
+                        {
+                            <tr>
+                                <td>@customer.CustomerName</td>
+                                <td>@customer.Email</td>
+                                <td>@customer.PhoneNumber</td>
+                                <td>@customer.Address</td>
+                                <td>@customer.Timestamp?.DateTime.ToString("yyyy-MM-dd HH:mm")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            @if (!Model.Customers.Any())
+            {
+                <p class="text-muted text-center">No customers found. Add your first customer above.</p>
+            }
+        </div>
+    </div>
+</div>

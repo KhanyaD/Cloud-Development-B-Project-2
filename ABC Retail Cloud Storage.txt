@@ -1,0 +1,7 @@
+ABC Retail Cloud Storage
+Azure File Storage Test
+
+This document is used to test the Azure File Share
+functionality of the ABC Retail Cloud Storage application.
+
+Status: Test successful

@@ -1,0 +1,153 @@
+﻿@page
+@model Cloud_Development_B__project_1.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="hero-section" role="banner" aria-label="Welcome section">
+    <div class="container py-5">
+        <div class="text-center text-white py-5">
+            <h1 class="display-3 fw-bold">
+                ABC Retail Cloud Storage
+            </h1>
+            <p class="lead mt-3">
+                Manage customers, products, orders, images, contracts and
+                queue messages using Microsoft Azure Storage.
+            </p>
+
+            <div class="hero-actions">
+                <a href="#services" class="btn btn-light btn-lg">
+                    View Services
+                </a>
+
+                <a asp-page="/Privacy" class="btn btn-outline-light btn-lg">
+                    Privacy
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<   section class="dashboard-section" id="services">
+    <div class="container">
+        <div class="section-heading">
+            <p class="section-label">APPLICATION SERVICES</p>
+            <h2>Cloud Storage Dashboard</h2>
+            <p>
+                Select a service below to manage the relevant information.
+            </p>
+        </div>
+
+        <div class="service-grid">
+
+            <article class="service-card">
+                <div class="service-icon">👥</div>
+
+                <div class="service-card-body">
+                    <h3>Customers</h3>
+
+                    <p>
+                        Create, view and manage customer profiles stored in
+                        Azure Table Storage.
+                    </p>
+
+                    <a asp-page="/Customers/Index"
+                       class="service-link">
+                        Manage Customers →
+                    </a>
+                </div>
+            </article>
+
+            <article class="service-card">
+                <div class="service-icon">📦</div>
+
+                <div class="service-card-body">
+                    <h3>Products</h3>
+
+                    <p>
+                        Store and maintain product information using Azure
+                        Table Storage.
+                    </p>
+
+                    <a asp-page="/Products/Index"
+                       class="service-link">
+                        Manage Products →
+                    </a>
+                </div>
+            </article>
+
+            <article class="service-card">
+                <div class="service-icon">🧾</div>
+
+                <div class="service-card-body">
+                    <h3>Orders</h3>
+
+                    <p>
+                        Process customer orders and send order notifications
+                        through Azure Queue Storage.
+                    </p>
+
+                    <a asp-page="/Orders/Index"
+                       class="service-link">
+                        Manage Orders →
+                    </a>
+                </div>
+            </article>
+
+            <article class="service-card">
+                <div class="service-icon">🖼️</div>
+
+                <div class="service-card-body">
+                    <h3>Product Images</h3>
+
+                    <p>
+                        Upload and retrieve product images using Azure Blob
+                        Storage.
+                    </p>
+
+                    <a asp-page="/Images/Index"
+                       class="service-link">
+                        Manage Images →
+                    </a>
+                </div>
+            </article>
+
+            <article class="service-card">
+                <div class="service-icon">📁</div>
+
+                <div class="service-card-body">
+                    <h3>Contracts</h3>
+
+                    <p>
+                        Upload and download contracts or supporting documents
+                        using Azure File Storage.
+                    </p>
+
+                    <a asp-page="/Contracts/Index"
+                       class="service-link">
+                        Manage Contracts →
+                    </a>
+                </div>
+            </article>
+
+            <article class="service-card">
+                <div class="service-icon">✉️</div>
+
+                <div class="service-card-body">
+                    <h3>Queue Messages</h3>
+
+                    <p>
+                        View and submit operational messages through Azure
+                        Queue Storage.
+                    </p>
+
+                    <a asp-page="/Messages/Index"
+                       class="service-link">
+                        Manage Messages →
+                    </a>
+                </div>
+            </article>
+
+        </div>
+    </div>
+</section>

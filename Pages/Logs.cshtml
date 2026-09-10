@@ -1,0 +1,94 @@
+﻿@page
+@model Cloud_Development_B__project_1.Pages.LogsModel
+@{
+    ViewData["Title"] = "Logs";
+}
+
+<div class="container py-4">
+    <h1 class="mb-2">Logs & Files</h1>
+    <p class="text-muted">Upload, view, and download files stored in Azure File Storage.</p>
+
+    @if (TempData["SuccessMessage"] is string successMessage)
+    {
+        <div class="alert alert-success" role="alert">
+            @successMessage
+        </div>
+    }z
+
+    @if (TempData["ErrorMessage"] is string errorMessage)
+    {
+        <div class="alert alert-danger" role="alert">
+            @errorMessage
+        </div>
+    }
+
+    @if (Model.ErrorMessage != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @Model.ErrorMessage
+        </div>
+    }
+
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            Upload File
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label asp-for="LogFile" class="form-label">Select a log or document file</label>
+                    <input asp-for="LogFile" class="form-control" />
+                    <span asp-validation-for="LogFile" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Upload File
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            Azure File Storage Files (@Model.FileNames.Count)
+        </div>
+        <div class="card-body">
+            @if (Model.FileNames.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>File Name</th>
+                                <th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var fileName in Model.FileNames)
+                            {
+                                <tr>
+                                    <td>@fileName</td>
+                                    <td class="text-end">
+                                        <a class="btn btn-sm btn-outline-primary"
+                                           asp-page-handler="Download"
+                                           asp-route-fileName="@fileName">
+                                            Download
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <p class="mb-0">No files have been uploaded yet.</p>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

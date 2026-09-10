@@ -1,0 +1,201 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+
+    <div class="hero-content">
+
+        <h1>
+            ABC Retail Cloud Storage
+        </h1>
+
+        <p>
+            Manage customers, products, orders, images, logs and files
+            using Microsoft Azure Storage services.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+<section class="dashboard-section">
+
+    <div class="row g-4">
+
+        <!-- CUSTOMERS -->
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card dashboard-card h-100">
+
+                <div class="card-body text-center">
+
+                    <div class="dashboard-icon">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+
+                    <h3>
+                        Customers
+                    </h3>
+
+                    <p>
+                        Manage customer records using Azure Table Storage.
+                    </p>
+
+                    <a asp-page="/Customers/Index"
+                       class="btn dashboard-btn">
+
+                        Manage Customers
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCTS -->
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card dashboard-card h-100">
+
+                <div class="card-body text-center">
+
+                    <div class="dashboard-icon">
+                        <i class="bi bi-box-seam-fill"></i>
+                    </div>
+
+                    <h3>
+                        Products
+                    </h3>
+
+                    <p>
+                        Manage product records using Azure Table Storage.
+                    </p>
+
+                    <a asp-page="/Products/Index"
+                       class="btn dashboard-btn">
+
+                        Manage Products
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ORDERS -->
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card dashboard-card h-100">
+
+                <div class="card-body text-center">
+
+                    <div class="dashboard-icon">
+                        <i class="bi bi-cart-check-fill"></i>
+                    </div>
+
+                    <h3>
+                        Orders
+                    </h3>
+
+                    <p>
+                        Create orders and send order messages
+                        using Azure Queue Storage.
+                    </p>
+
+                    <a asp-page="/Orders/Index"
+                       class="btn dashboard-btn">
+
+                        Manage Orders
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- IMAGES -->
+        <div class="col-lg-6 col-md-6">
+
+            <div class="card dashboard-card h-100">
+
+                <div class="card-body text-center">
+
+                    <div class="dashboard-icon">
+                        <i class="bi bi-images"></i>
+                    </div>
+
+                    <h3>
+                        Product Images
+                    </h3>
+
+                    <p>
+                        Upload, preview and manage product images
+                        using Azure Blob Storage.
+                    </p>
+
+                    <a asp-page="/Images"
+                       class="btn dashboard-btn">
+
+                        Manage Images
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- LOGS -->
+        <div class="col-lg-6 col-md-6">
+
+            <div class="card dashboard-card h-100">
+
+                <div class="card-body text-center">
+
+                    <div class="dashboard-icon">
+                        <i class="bi bi-folder2-open"></i>
+                    </div>
+
+                    <h3>
+                        Logs & Files
+                    </h3>
+
+                    <p>
+                        Upload, download and manage logs and documents
+                        using Azure File Storage.
+                    </p>
+
+                    <a asp-page="/Logs"
+                       class="btn dashboard-btn">
+
+                        Manage Logs & Files
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

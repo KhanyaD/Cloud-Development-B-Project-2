@@ -1,0 +1,296 @@
+@page
+@model Cloud_Development_B__project_1.Pages.Products.IndexModel
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="container mt-4">
+
+    <div class="mb-4">
+        <h1 class="display-6 fw-bold">
+            <i class="bi bi-box-seam text-primary"></i>
+            Product Management
+        </h1>
+
+        <p class="lead">
+            Manage product records using Azure Table Storage
+        </p>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @Model.SuccessMessage
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close">
+            </button>
+        </div>
+    }
+
+    @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @Model.ErrorMessage
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close">
+            </button>
+        </div>
+    }
+
+    <div class="card mb-4">
+
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">
+                @(Model.IsEditing ? "Edit Product" : "Add New Product")
+            </h5>
+        </div>
+
+        <div class="card-body">
+
+            <form method="post"
+                  asp-page-handler="@(Model.IsEditing ? "Update" : "Add")">
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3">
+                </div>
+
+                @if (Model.IsEditing)
+                {
+                    <input type="hidden"
+                           asp-for="Product.PartitionKey" />
+
+                    <input type="hidden"
+                           asp-for="Product.RowKey" />
+                }
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label asp-for="Product.Name"
+                               class="form-label">
+                        </label>
+
+                        <input asp-for="Product.Name"
+                               class="form-control" />
+
+                        <span asp-validation-for="Product.Name"
+                              class="text-danger">
+                        </span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Product.Description"
+                               class="form-label">
+                        </label>
+
+                        <input asp-for="Product.Description"
+                               class="form-control" />
+
+                        <span asp-validation-for="Product.Description"
+                              class="text-danger">
+                        </span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="Product.Price"
+                               class="form-label">
+                        </label>
+
+                        <input asp-for="Product.Price"
+                               class="form-control"
+                               type="number"
+                               step="0.01" />
+
+                        <span asp-validation-for="Product.Price"
+                              class="text-danger">
+                        </span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="Product.Quantity"
+                               class="form-label">
+                        </label>
+
+                        <input asp-for="Product.Quantity"
+                               class="form-control"
+                               type="number" />
+
+                        <span asp-validation-for="Product.Quantity"
+                              class="text-danger">
+                        </span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="Product.ImageUrl"
+                               class="form-label">
+                        </label>
+
+                        <input asp-for="Product.ImageUrl"
+                               class="form-control"
+                               placeholder="https://..." />
+
+                        <span asp-validation-for="Product.ImageUrl"
+                              class="text-danger">
+                        </span>
+                    </div>
+
+                    <div class="col-12">
+
+                        @if (Model.IsEditing)
+                        {
+                            <button type="submit"
+                                    class="btn btn-warning">
+
+                                <i class="bi bi-pencil-square"></i>
+                                Update Product
+                            </button>
+
+                            <a asp-page="/Products/Index"
+                               class="btn btn-secondary ms-2">
+                                Cancel
+                            </a>
+                        }
+                        else
+                        {
+                            <button type="submit"
+                                    class="btn btn-primary">
+
+                                <i class="bi bi-plus-circle"></i>
+                                Add Product
+                            </button>
+                        }
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <div class="card">
+
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">
+                All Products (@Model.Products.Count)
+            </h5>
+        </div>
+
+        <div class="card-body">
+
+            @if (Model.Products.Any())
+            {
+                <div class="table-responsive">
+
+                    <table class="table table-striped table-hover align-middle">
+
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Image</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var product in Model.Products)
+                            {
+                                <tr>
+
+                                    <td>@product.Name</td>
+
+                                    <td>@product.Description</td>
+
+                                    <td>@product.Price.ToString("C")</td>
+
+                                    <td>@product.Quantity</td>
+
+                                    <td>
+                                        @if (!string.IsNullOrWhiteSpace(product.ImageUrl))
+                                        {
+                                            <a href="@product.ImageUrl"
+                                               target="_blank">
+                                                View Image
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">
+                                                No image
+                                            </span>
+                                        }
+                                    </td>
+
+                                    <td>
+
+                                        <a asp-page-handler="Edit"
+                                           asp-route-partitionKey="@product.PartitionKey"
+                                           asp-route-rowKey="@product.RowKey"
+                                           class="btn btn-warning btn-sm">
+
+                                            <i class="bi bi-pencil-square"></i>
+                                            Edit
+                                        </a>
+
+                                        <form method="post"
+                                              asp-page-handler="Delete"
+                                              class="d-inline">
+
+                                            <input type="hidden"
+                                                   name="partitionKey"
+                                                   value="@product.PartitionKey" />
+
+                                            <input type="hidden"
+                                                   name="rowKey"
+                                                   value="@product.RowKey" />
+
+                                            <button type="submit"
+                                                    class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('Are you sure you want to delete this product?');">
+
+                                                <i class="bi bi-trash"></i>
+                                                Delete
+                                            </button>
+
+                                        </form>
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info mb-0">
+                    No products found. Add your first product above!
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,197 @@
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+
+/* =========================================
+   ABC RETAIL CLOUD STORAGE
+   ========================================= */
+
+body {
+    margin-bottom: 60px;
+    /* Slightly darker professional blue-grey */
+    background: #DCE4EF;
+    color: #172033;
+    min-height: 100vh;
+}
+
+
+/* =========================================
+   NAVIGATION
+   ========================================= */
+
+.navbar {
+    background-color: #FFFFFF !important;
+    border-bottom: 1px solid #D5DCE7;
+    box-shadow: 0 2px 8px rgba(25, 40, 70, 0.05);
+}
+
+.navbar-brand {
+    font-weight: 600;
+    color: #172033 !important;
+}
+
+.nav-link {
+    color: #172033 !important;
+    transition: color 0.2s ease;
+}
+
+    .nav-link:hover {
+        color: #0D6EFD !important;
+    }
+
+
+/* =========================================
+   HERO
+   ========================================= */
+
+.hero-section {
+    background: linear-gradient( 135deg, #2864D7 0%, #514FC3 52%, #692CA0 100% );
+    min-height: 330px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 40px;
+    padding: 50px 30px;
+    box-shadow: 0 8px 22px rgba(38, 55, 100, 0.18);
+}
+
+.hero-content {
+    text-align: center;
+    color: white;
+}
+
+    .hero-content h1 {
+        font-size: clamp(2.5rem, 5vw, 4.2rem);
+        font-weight: 700;
+        margin-bottom: 25px;
+    }
+
+    .hero-content p {
+        font-size: 1.2rem;
+        margin: 0 auto;
+        max-width: 950px;
+        opacity: 0.95;
+    }
+
+
+/* =========================================
+   DASHBOARD
+   ========================================= */
+
+.dashboard-section {
+    padding: 5px 10px 45px;
+}
+
+
+/* =========================================
+   DASHBOARD CARDS
+   ========================================= */
+
+.dashboard-card {
+    background-color: #FFFFFF;
+    border: 1px solid #D5DDE8;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(27, 45, 80, 0.10);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+    .dashboard-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 25px rgba(27, 45, 80, 0.18);
+    }
+
+    .dashboard-card .card-body {
+        padding: 35px 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .dashboard-card h3 {
+        font-size: 1.55rem;
+        font-weight: 700;
+        color: #172033;
+        margin-bottom: 12px;
+    }
+
+    .dashboard-card p {
+        color: #46536A;
+        font-size: 1rem;
+        min-height: 50px;
+        margin-bottom: 22px;
+    }
+
+
+/* =========================================
+   ICONS
+   ========================================= */
+
+.dashboard-icon {
+    width: 78px;
+    height: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    background: #E7EEFA;
+    color: #1557D5;
+    font-size: 2.2rem;
+}
+
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+.dashboard-btn {
+    background: linear-gradient( 135deg, #0755D9, #1769F5 );
+    color: #FFFFFF;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 22px;
+    font-size: 1rem;
+    box-shadow: 0 3px 8px rgba(13, 91, 220, 0.20);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .dashboard-btn:hover {
+        color: #FFFFFF;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px rgba(13, 91, 220, 0.30);
+    }
+
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+.footer {
+    background-color: #DCE4EF;
+    border-top: 1px solid #C8D2E0 !important;
+    color: #56647A !important;
+}
+
+
+/* =========================================
+   FORM CONTROLS
+   ========================================= */
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}

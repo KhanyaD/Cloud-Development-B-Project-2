@@ -1,0 +1,258 @@
+@page
+@model Cloud_Development_B__project_1.Pages.Customers.IndexModel
+
+@{
+    ViewData["Title"] = "Customers";
+}
+
+<div class="container mt-4">
+
+    <div class="mb-4">
+        <h1 class="display-6 fw-bold">
+            <i class="bi bi-people-fill text-primary"></i>
+            Customer Management
+        </h1>
+
+        <p class="lead">
+            Manage customer records using Azure Table Storage
+        </p>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @Model.SuccessMessage
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close">
+            </button>
+        </div>
+    }
+
+    @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @Model.ErrorMessage
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close">
+            </button>
+        </div>
+    }
+
+    <div class="card mb-4">
+
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">
+                @(Model.IsEditing ? "Edit Customer" : "Add New Customer")
+            </h5>
+        </div>
+
+        <div class="card-body">
+
+            <form method="post"
+                  asp-page-handler="@(Model.IsEditing ? "Update" : "Add")">
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3">
+                </div>
+
+                @if (Model.IsEditing)
+                {
+                    <input type="hidden"
+                           asp-for="Customer.PartitionKey" />
+
+                    <input type="hidden"
+                           asp-for="Customer.RowKey" />
+                }
+
+                <div class="row g-3">
+
+                    <div class="col-md-4">
+                        <label asp-for="Customer.Name"
+                               class="form-label">
+                        </label>
+
+                        <input asp-for="Customer.Name"
+                               class="form-control" />
+
+                        <span asp-validation-for="Customer.Name"
+                              class="text-danger">
+                        </span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="Customer.Email"
+                               class="form-label">
+                        </label>
+
+                        <input asp-for="Customer.Email"
+                               class="form-control"
+                               type="email" />
+
+                        <span asp-validation-for="Customer.Email"
+                              class="text-danger">
+                        </span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="Customer.Phone"
+                               class="form-label">
+                        </label>
+
+                        <input asp-for="Customer.Phone"
+                               class="form-control"
+                               type="tel" />
+
+                        <span asp-validation-for="Customer.Phone"
+                              class="text-danger">
+                        </span>
+                    </div>
+
+                    <div class="col-12">
+
+                        @if (Model.IsEditing)
+                        {
+                            <button type="submit"
+                                    class="btn btn-warning">
+
+                                <i class="bi bi-pencil-square"></i>
+                                Update Customer
+
+                            </button>
+
+                            <a asp-page="/Customers/Index"
+                               class="btn btn-secondary ms-2">
+
+                                Cancel
+
+                            </a>
+                        }
+                        else
+                        {
+                            <button type="submit"
+                                    class="btn btn-primary">
+
+                                <i class="bi bi-plus-circle"></i>
+                                Add Customer
+
+                            </button>
+                        }
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <div class="card">
+
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">
+                All Customers (@Model.Customers.Count)
+            </h5>
+        </div>
+
+        <div class="card-body">
+
+            @if (Model.Customers.Any())
+            {
+                <div class="table-responsive">
+
+                    <table class="table table-striped table-hover align-middle">
+
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var customer in Model.Customers)
+                            {
+                                <tr>
+
+                                    <td>@customer.Name</td>
+
+                                    <td>
+                                        <a href="mailto:@customer.Email">
+                                            @customer.Email
+                                        </a>
+                                    </td>
+
+                                    <td>@customer.Phone</td>
+
+                                    <td>
+
+                                        <a asp-page-handler="Edit"
+                                           asp-route-partitionKey="@customer.PartitionKey"
+                                           asp-route-rowKey="@customer.RowKey"
+                                           class="btn btn-warning btn-sm">
+
+                                            <i class="bi bi-pencil-square"></i>
+                                            Edit
+
+                                        </a>
+
+                                        <form method="post"
+                                              asp-page-handler="Delete"
+                                              class="d-inline">
+
+                                            <input type="hidden"
+                                                   name="partitionKey"
+                                                   value="@customer.PartitionKey" />
+
+                                            <input type="hidden"
+                                                   name="rowKey"
+                                                   value="@customer.RowKey" />
+
+                                            <button type="submit"
+                                                    class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('Are you sure you want to delete this customer?');">
+
+                                                <i class="bi bi-trash"></i>
+                                                Delete
+
+                                            </button>
+
+                                        </form>
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info mb-0">
+                    No customers found. Add your first customer above!
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

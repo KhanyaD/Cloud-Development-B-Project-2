@@ -1,0 +1,80 @@
+﻿@page
+@model Cloud_Development_B__project_1.Pages.OrdersModel
+@{
+    ViewData["Title"] = "Order Processing";
+}
+
+<div class="container mt-4">
+    <h2>Order Processing (Azure Queue Storage)</h2>
+    
+    <div class="card mt-3">
+        <div class="card-header">
+            <h4>Send Order to Queue</h4>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5>📤 Send Order to Queue</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-page-handler="SendMessage">
+                        <div class="mb-3">
+                            <label asp-for="OrderMessage" class="form-label">Order Message</label>
+                            <textarea asp-for="OrderMessage" class="form-control" rows="4" 
+                                      placeholder="e.g., Processing order #12345 for customer John Doe" required></textarea>
+                            <div class="form-text">Enter order processing or inventory management details</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">
+                            Send to Queue
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5>📥 Receive Message from Queue</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-page-handler="ReceiveMessage">
+                        <p class="mb-3">Click the button below to receive and process the next message from the queue.</p>
+                        <button type="submit" class="btn btn-success w-100">
+                            Receive Message
+                        </button>
+                    </form>
+                    
+                    @if (Model.ReceivedMessage != null)
+                    {
+                        <div class="mt-3 p-3 bg-light border rounded">
+                            <h6><strong>Latest Message:</strong></h6>
+                            <p class="mb-0">@Model.ReceivedMessage</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            <h5>ℹ️ Queue Information</h5>
+        </div>
+        <div class="card-body">
+            <h6>About Azure Queue Storage</h6>
+            <p>This page demonstrates Azure Queue Storage for order processing and inventory management in the ABC Retail system.</p>
+            <ul>
+                <li><strong>Send Message:</strong> Adds a new order or inventory message to the queue for processing</li>
+                <li><strong>Receive Message:</strong> Retrieves and processes the next message in the queue (FIFO order)</li>
+                <li><strong>Use Cases:</strong> Order confirmations, inventory updates, shipping notifications, payment processing</li>
+            </ul>
+            <div class="alert alert-info mb-0">
+                <strong>Note:</strong> Messages are processed in FIFO (First In, First Out) order and are automatically deleted after being received.
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,258 @@
+﻿@page
+@model Cloud_Development_B__project_1.Pages.LogsModel
+
+@{
+    ViewData["Title"] = "Logs & Files";
+}
+
+<div class="container mt-4">
+
+    <!-- PAGE HEADER -->
+
+    <div class="mb-4">
+
+        <h1 class="display-6 fw-bold">
+
+            <i class="bi bi-folder2-open text-primary"></i>
+
+            Logs & Files
+
+        </h1>
+
+        <p class="lead">
+
+            Upload and manage application logs,
+            contracts and documents using Azure File Storage.
+
+        </p>
+
+    </div>
+
+
+    <!-- SUCCESS MESSAGE -->
+    @if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+    {
+        <div class="alert alert-success alert-dismissible fade show"
+             role="alert">
+
+            @Model.SuccessMessage
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close">
+            </button>
+
+        </div>
+    }
+
+
+    <!-- ERROR MESSAGE -->
+    @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger alert-dismissible fade show"
+             role="alert">
+
+            @Model.ErrorMessage
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close">
+            </button>
+
+        </div>
+    }
+
+
+    <!-- UPLOAD SECTION -->
+
+    <div class="card mb-4">
+
+        <div class="card-header bg-primary text-white">
+
+            <h5 class="mb-0">
+
+                <i class="bi bi-cloud-arrow-up"></i>
+
+                Upload File
+
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            <form method="post"
+                  enctype="multipart/form-data"
+                  asp-page-handler="Upload">
+
+                <div class="mb-3">
+
+                    <label asp-for="UploadedFile"
+                           class="form-label">
+
+                        Select File
+
+                    </label>
+
+                    <input asp-for="UploadedFile"
+                           type="file"
+                           class="form-control" />
+
+                    <span asp-validation-for="UploadedFile"
+                          class="text-danger">
+                    </span>
+
+                    <div class="form-text">
+
+                        Upload logs, contracts or other documents.
+                        Maximum file size: 10 MB.
+
+                    </div>
+
+                </div>
+
+
+                <button type="submit"
+                        class="btn btn-primary">
+
+                    <i class="bi bi-cloud-upload"></i>
+
+                    Upload to Azure File Storage
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- STORED FILES -->
+
+    <div class="card">
+
+        <div class="card-header bg-secondary text-white">
+
+            <h5 class="mb-0">
+
+                <i class="bi bi-folder"></i>
+
+                Stored Files (@Model.Files.Count)
+
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            @if (Model.Files.Any())
+            {
+                <div class="table-responsive">
+
+                    <table class="table table-striped table-hover align-middle">
+
+                        <thead class="table-dark">
+
+                            <tr>
+
+                                <th>
+                                    File Name
+                                </th>
+
+                                <th style="width: 250px;">
+                                    Actions
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            @foreach (var file in Model.Files)
+                            {
+                                <tr>
+
+                                    <td>
+
+                                        <i class="bi bi-file-earmark-text text-primary me-2"></i>
+
+                                        @file
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <!-- DOWNLOAD -->
+
+                                        <a asp-page-handler="Download"
+                                           asp-route-fileName="@file"
+                                           class="btn btn-success btn-sm">
+
+                                            <i class="bi bi-download"></i>
+
+                                            Download
+
+                                        </a>
+
+
+                                        <!-- DELETE -->
+
+                                        <form method="post"
+                                              asp-page-handler="Delete"
+                                              class="d-inline">
+
+                                            <input type="hidden"
+                                                   name="fileName"
+                                                   value="@file" />
+
+                                            <button type="submit"
+                                                    class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('Are you sure you want to delete this file?');">
+
+                                                <i class="bi bi-trash"></i>
+
+                                                Delete
+
+                                            </button>
+
+                                        </form>
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info mb-0">
+
+                    <i class="bi bi-info-circle"></i>
+
+                    No files have been uploaded yet.
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
