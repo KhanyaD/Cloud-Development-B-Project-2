@@ -5,7 +5,7 @@ Cloud Development B Project 2
 - **Student:** Kukhanya Dlanjwa
 - **Student number:** ST10364883
 - **Project:** ABC Retail Cloud Storage
-- **Assessment:** Project 2 — Integrating Azure Services into a Web Application
+- **Assessment:** Project 2  Integrating Azure Services into a Web Application
 - **Source repository:** https://github.com/KhanyaD/Cloud-Development-B-Project-2
 - **Deployed application:** To be added after confirming the working Azure App Service URL.
 - **Module code:** Confirm the exact code on the assessment cover before submission.
